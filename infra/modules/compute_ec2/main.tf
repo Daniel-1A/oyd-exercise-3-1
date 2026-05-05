@@ -55,16 +55,18 @@ resource "aws_security_group" "this" {
 
 # EC2 instance
 resource "aws_instance" "this" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  iam_instance_profile   = aws_iam_instance_profile.this.name
-  vpc_security_group_ids = [aws_security_group.this.id]
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  iam_instance_profile        = aws_iam_instance_profile.this.name
+  vpc_security_group_ids      = [aws_security_group.this.id]
+  associate_public_ip_address = true
 
   user_data = <<-EOF
     #!/bin/bash
     dnf install -y ruby
     aws s3 cp s3://${var.app_s3_bucket}/server.rb /opt/server.rb
-    COMPUTE_TYPE=ec2 nohup ruby /opt/server.rb &
+    COMPUTE_TYPE=ec2 nohup ruby /opt/server.rb > /var/log/server.log 2>&1 &
+    disown
   EOF
 
   tags = {
