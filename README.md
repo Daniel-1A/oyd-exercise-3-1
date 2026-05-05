@@ -4,7 +4,15 @@
 ### Instance info
 
 \```
-(pega aquí el contenido de instance.txt)
+
+-------------------------------------------------------
+|                  DescribeInstances                  |
++---------------------+--------------+----------------+
+|  i-01e22a59a47fb48b2|  running     |  54.203.135.5  |
+|  i-0a1558492422dc930|  terminated  |  None          |
+|  i-0f3cb50bae75b926f|  terminated  |  None          |
++---------------------+--------------+----------------+
+
 \```
 
 ### Health check
